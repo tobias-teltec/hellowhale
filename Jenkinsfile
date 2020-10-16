@@ -1,6 +1,6 @@
 pipeline {
 
-  agent { label 'kubepod' }
+  agent any
 
   stages {
 
@@ -9,7 +9,9 @@ pipeline {
         git url:'https://github.com/tobias-teltec/hellowhale.git', branch:'master'
       }
     }
-    
+
+  agent { label 'master' 
+
       stage("Build image") {
             steps {
                 script {
@@ -28,7 +30,7 @@ pipeline {
                 }
             }
         }
-
+  }
     stage('Deploy App') {
       steps {
         script {
