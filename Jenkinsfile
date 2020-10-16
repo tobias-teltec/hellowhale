@@ -1,7 +1,5 @@
 pipeline {
 
-  agent any
-
   stages {
 
     stage('Checkout Source') {
@@ -10,7 +8,7 @@ pipeline {
       }
     }
 
-  agent { label 'master' 
+  agent any { 
 
       stage("Build image") {
             steps {
@@ -31,6 +29,9 @@ pipeline {
             }
         }
   }
+
+  agent { label 'kubepod' 
+
     stage('Deploy App') {
       steps {
         script {
@@ -38,7 +39,8 @@ pipeline {
         }
       }
     }
-
+  }
+  
   }
 
 }
