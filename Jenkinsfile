@@ -29,7 +29,6 @@ pipeline {
             }
         }
 
-  agent { label 'kubepod' }  
     stage('Deploy App') {
       steps {
         script {
