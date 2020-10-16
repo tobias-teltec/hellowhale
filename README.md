@@ -1,3 +1,2 @@
 # hellowhale
-Simple Docker Demo App
-Tobias Teste one more
+Simple Docker Demo App OK
