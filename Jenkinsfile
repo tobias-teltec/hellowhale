@@ -1,5 +1,7 @@
 pipeline {
 
+  agent any
+
   stages {
 
     stage('Checkout Source') {
@@ -8,15 +10,13 @@ pipeline {
       }
     }
 
-  agent any { 
-
       stage("Build image") {
             steps {
                 script {
                     myapp = docker.build("tobiasparaiso/hellowhale:${env.BUILD_ID}")
                 }
             }
-        }
+      }
     
       stage("Push image") {
             steps {
@@ -27,20 +27,16 @@ pipeline {
                     }
                 }
             }
-        }
-  }
-
-  agent { label 'kubepod' 
-
+      }
+    
     stage('Deploy App') {
+      agent { label 'kubepod'}
       steps {
         script {
           kubernetesDeploy(configs: "hellowhale.yml", kubeconfigId: "mykubeconfig")
         }
       }
     }
-  }
-  
   }
 
 }
